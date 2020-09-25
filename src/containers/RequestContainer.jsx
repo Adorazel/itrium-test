@@ -3,9 +3,9 @@ import withService from "../hoc/withService"
 import {connect} from "react-redux"
 import {setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
 import {compose} from "../utils"
-import Panel from "../components/Panel/Panel"
+import Request from "../components/Request"
 
-class PanelContainer extends Component {
+class RequestContainer extends Component {
 
   urlChangeHandler = ({target}) => {
     const {setRequestUrl} = this.props
@@ -92,20 +92,15 @@ class PanelContainer extends Component {
       clearHeaderHandler,
       addHeaderHandler
     }
-    return <Panel {...panelProps}/>
+    return <Request {...panelProps}/>
   }
 }
 
-const mapStateToProps = ({request: {error: reqError, url, method, headers, body}, response: {error: resError}, fetch: {error: fetchError, loading}}) => ({
-  reqError,
-  resError,
-  fetchError,
-  loading,
-  url,
-  method,
-  headers,
-  body
-})
+const mapStateToProps = ({
+                           request: {error: reqError, url, method, headers, body},
+                           response: {error: resError},
+                           fetch: {error: fetchError, loading}
+                         }) => ({reqError, resError, fetchError, loading, url, method, headers, body})
 
 const mapDispatchToProps = (dispatch, {service}) => {
   return {
@@ -121,5 +116,5 @@ const mapDispatchToProps = (dispatch, {service}) => {
 export default compose(
   withService(),
   connect(mapStateToProps, mapDispatchToProps)
-)(PanelContainer)
+)(RequestContainer)
 

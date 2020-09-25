@@ -1,6 +1,7 @@
 import React from 'react'
-import History from "../History"
-import PanelContainer from "../../containers/PanelContainer"
+import History from "./History"
+import RequestContainer from "../containers/RequestContainer"
+import ResponseContainer from "../containers/ResponseContainer"
 
 const App = () => {
   return (
@@ -17,7 +18,9 @@ const App = () => {
               <History/>
             </aside>
             <div className="col-9">
-              <PanelContainer/>
+              <RequestContainer/>
+              <hr/>
+              <ResponseContainer/>
             </div>
           </div>
         </div>

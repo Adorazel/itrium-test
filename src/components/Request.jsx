@@ -1,50 +1,22 @@
-import React from "react"
-import ErrorIndicator from "../ErrorIndicator"
-import Editor from "../Editor"
+import React, {useRef} from "react"
+import ErrorIndicator from "./ErrorIndicator"
+import Editor from "./Editor"
+import {tabHandler} from "../utils"
 
-const Panel = (props) => {
+const Request = (props) => {
+
+  const section = useRef()
 
   const {
-    reqError,
-    resError,
-    fetchError,
-    loading,
-    url,
-    method,
-    headers,
-    body,
-    urlChangeHandler,
-    methodChangeHandler,
-    headersChangeHandler,
-    bodyChangeHandler,
-    sendRequestHandler,
-    clearHeaderHandler,
-    addHeaderHandler
+    reqError, resError, fetchError, loading, url, method, headers, body,
+    urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, clearHeaderHandler, addHeaderHandler
   } = props
 
   const error = reqError || fetchError || resError
 
-  const tabHandler = event => {
-    event.preventDefault()
-
-    const section = document.querySelector(".request")
-
-    const tabs = [...section.querySelectorAll(".nav-link")]
-    tabs.forEach(item => {
-      item.classList.remove("active")
-    })
-    event.target.classList.add("active")
-
-    const tabContents = [...section.querySelectorAll(".tab-pane")]
-    tabContents.forEach(item => {
-      item.classList.remove("active")
-    })
-    const id = "#" + event.target.href.split("#")[1]
-    section.querySelector(id).classList.add("active")
-  }
-
   return (
-    <section className="request">
+    <section ref={section}>
+      <h5 className="m-0 mb-3 text-uppercase">Request</h5>
       <div className="input-group mb-3">
         <div className="input-group-prepend">
           <select className="custom-select rounded-left rounded-right-0"
@@ -67,20 +39,20 @@ const Panel = (props) => {
       {error && <ErrorIndicator error={error}/>}
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a className="nav-link active" href="#body" onClick={tabHandler}>Body</a>
+          <a className="nav-link active" href="#body" onClick={event => tabHandler(event, section.current)}>Body</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#headers" onClick={tabHandler}>Headers</a>
+          <a className="nav-link" href="#headers" onClick={event => tabHandler(event, section.current)}>Headers</a>
         </li>
       </ul>
       <div className="tab-content">
-        <div className="tab-pane py-3 active" id="body" role="tabpanel" aria-labelledby="body-tab">
+        <div className="tab-pane pt-3 active" id="body" role="tabpanel" aria-labelledby="body-tab">
           <div className="form-group">
             <label className="font-weight-bold">JSON</label>
             <Editor value={body} onChange={bodyChangeHandler} readOnly={loading}/>
           </div>
         </div>
-        <div className="tab-pane py-3" id="headers" role="tabpanel" aria-labelledby="headers-tab">
+        <div className="tab-pane pt-3" id="headers" role="tabpanel" aria-labelledby="headers-tab">
           <table className="table mb-3">
             <thead>
             <tr>
@@ -121,5 +93,5 @@ const Panel = (props) => {
 }
 
 
-export default Panel
+export default Request
 

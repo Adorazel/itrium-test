@@ -5,7 +5,7 @@ import * as serviceWorker from "./serviceWorker"
 import App from "./components/App"
 import ErrorBoundary from "./components/ErrorBoundary"
 import FetchService from "./services/fetch.service"
-import {ServiceProvider} from "./components/ServiceContex"
+import {ServiceProvider} from "./contexts/ServiceContex"
 import store from "./store"
 
 import "./index.css"
