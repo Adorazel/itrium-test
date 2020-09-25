@@ -15,7 +15,7 @@ const Request = (props) => {
   const error = reqError || fetchError || resError
 
   return (
-    <section ref={section}>
+    <section ref={section} className="border border-left-0 border-right-0 border-top-0 mb-3 pb-2">
       <h5 className="m-0 mb-3 text-uppercase">Request</h5>
       <div className="input-group mb-3">
         <div className="input-group-prepend">

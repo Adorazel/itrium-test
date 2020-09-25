@@ -13,13 +13,12 @@ const App = () => {
       </header>
       <div className="container">
         <div className="py-3">
-          <div className="row">
+          <div className="row align-items-stretch">
             <aside className="col-3">
               <History/>
             </aside>
             <div className="col-9">
               <RequestContainer/>
-              <hr/>
               <ResponseContainer/>
             </div>
           </div>
