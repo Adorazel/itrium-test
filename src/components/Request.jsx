@@ -9,7 +9,7 @@ const Request = (props) => {
 
   const {
     reqError, resError, fetchError, loading, url, method, headers, body,
-    urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, clearHeaderHandler, addHeaderHandler
+    urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, keyDownHandler, clearHeaderHandler, addHeaderHandler
   } = props
 
   const error = reqError || fetchError || resError
@@ -28,7 +28,8 @@ const Request = (props) => {
           </select>
         </div>
         <input type="text" className="form-control rounded-0"
-               value={url} onChange={urlChangeHandler} disabled={loading}/>
+               value={url} onChange={urlChangeHandler} onKeyDown={keyDownHandler}
+               disabled={loading}/>
         <div className="input-group-append">
           <button className="btn btn-primary rounded-right rounded-left-0" type="button"
                   onClick={sendRequestHandler} disabled={loading}>
@@ -52,7 +53,7 @@ const Request = (props) => {
             <Editor value={body} onChange={bodyChangeHandler} readOnly={loading}/>
           </div>
         </div>
-        <div className="tab-pane pt-3" id="headers" role="tabpanel" aria-labelledby="headers-tab">
+        <div className="tab-pane py-3" id="headers" role="tabpanel" aria-labelledby="headers-tab">
           <table className="table mb-3">
             <thead>
             <tr>

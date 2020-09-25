@@ -53,6 +53,10 @@ class RequestContainer extends Component {
     fetchUrl(url, method, headers, body)
   }
 
+  keyDownHandler = event => {
+    if (event.key === "Enter") this.sendRequestHandler()
+  }
+
   clearHeaderHandler = (event, idx) => {
     event.preventDefault()
     const {headers, setRequestHeaders} = this.props
@@ -74,7 +78,7 @@ class RequestContainer extends Component {
 
   render() {
     const {reqError, resError, fetchError, loading, url, method, headers, body} = this.props
-    const {urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, clearHeaderHandler, addHeaderHandler} = this
+    const {urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, keyDownHandler, clearHeaderHandler, addHeaderHandler} = this
     const panelProps = {
       reqError,
       resError,
@@ -89,6 +93,7 @@ class RequestContainer extends Component {
       headersChangeHandler,
       bodyChangeHandler,
       sendRequestHandler,
+      keyDownHandler,
       clearHeaderHandler,
       addHeaderHandler
     }

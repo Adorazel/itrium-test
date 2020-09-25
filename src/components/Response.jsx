@@ -11,13 +11,6 @@ const Response = props => {
   let color = "#28a745"
   if (statusCode > 299 || statusCode < 200) color = "#dc3545"
 
-  if (!body) {
-    return <section>
-      <h5 className="m-0 mb-3 text-uppercase">Response</h5>
-      <div className="text-center p-5 text-black-50">Hit Send to get a response</div>
-    </section>
-  }
-
   return <section ref={section}>
     <div className="d-flex justify-content-between align-middle">
       <h5 className="m-0 mb-3 text-uppercase">Response</h5>
