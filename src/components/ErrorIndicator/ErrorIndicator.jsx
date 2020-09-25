@@ -1,8 +1,10 @@
 import React from "react"
 
-const ErrorIndicator = () => {
+const ErrorIndicator = ({error}) => {
   return (
-    <div className="text-danger">Error!</div>
+    <div className="alert alert-danger" role="alert">
+      {error.message || "Something went wrong..."}
+    </div>
   )
 }
 

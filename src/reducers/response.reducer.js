@@ -1,17 +1,25 @@
-import {SET_RESPONSE_BODY, SET_RESPONSE_HEADERS, SET_RESPONSE_STATUS_CODE} from "../actionTypes";
+import {SET_RESPONSE_ERROR, SET_RESPONSE_BODY, SET_RESPONSE_HEADERS, SET_RESPONSE_STATUS_CODE} from "../actionTypes";
 
 const initialState = {
   statusCode: null,
   headers: null,
   body: null,
+  error: null,
 }
 
 const responseReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case SET_RESPONSE_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+
     case SET_RESPONSE_STATUS_CODE:
       return {
         ...state,
-        statusCode: action.payload
+        statusCode: action.payload,
       }
 
     case SET_RESPONSE_HEADERS:

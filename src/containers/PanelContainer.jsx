@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import withService from "../hoc/withService"
 import {connect} from "react-redux"
-import {setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
+import {setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
 import {compose} from "../utils"
 import Panel from "../components/Panel/Panel"
 
@@ -32,18 +32,18 @@ class PanelContainer extends Component {
   }
 
   sendRequestHandler = () => {
-    const {url, method, fetchUrl} = this.props
+    const {url, method, fetchUrl, setRequestError} = this.props
     let {headers, body} = this.props
 
-    headers =  headers.map(header => Object.values(header))
+    headers = headers.map(header => Object.values(header))
     headers = Object.fromEntries(headers)
     delete headers[""]
 
-    if (body.trim()) {
+    if (body.trim() && method !== "GET") {
       try {
         body = JSON.parse(body)
       } catch (e) {
-        console.log(e)
+        setRequestError({message: "Body JSON is invalid"})
         return
       }
     } else {
@@ -73,9 +73,13 @@ class PanelContainer extends Component {
   }
 
   render() {
-    const {url, method, headers, body} = this.props
+    const {reqError, resError, fetchError, loading, url, method, headers, body} = this.props
     const {urlChangeHandler, methodChangeHandler, headersChangeHandler, bodyChangeHandler, sendRequestHandler, clearHeaderHandler, addHeaderHandler} = this
     const panelProps = {
+      reqError,
+      resError,
+      fetchError,
+      loading,
       url,
       method,
       headers,
@@ -92,10 +96,20 @@ class PanelContainer extends Component {
   }
 }
 
-const mapStateToProps = ({request: {url, method, headers, body}}) => ({url, method, headers, body})
+const mapStateToProps = ({request: {error: reqError, url, method, headers, body}, response: {error: resError}, fetch: {error: fetchError, loading}}) => ({
+  reqError,
+  resError,
+  fetchError,
+  loading,
+  url,
+  method,
+  headers,
+  body
+})
 
 const mapDispatchToProps = (dispatch, {service}) => {
   return {
+    setRequestError: setRequestError(dispatch),
     setRequestUrl: setRequestUrl(dispatch),
     setRequestMethod: setRequestMethod(dispatch),
     setRequestHeaders: setRequestHeaders(dispatch),

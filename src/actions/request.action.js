@@ -1,4 +1,17 @@
-import {SET_REQUEST_BODY, SET_REQUEST_HEADERS, SET_REQUEST_METHOD, SET_REQUEST_URL} from "../actionTypes"
+import {
+  SET_REQUEST_BODY,
+  SET_REQUEST_ERROR,
+  SET_REQUEST_HEADERS,
+  SET_REQUEST_METHOD,
+  SET_REQUEST_URL
+} from "../actionTypes"
+
+const setRequestError = dispatch => error => {
+  dispatch({
+    type: SET_REQUEST_ERROR,
+    payload: error
+  })
+}
 
 const setRequestUrl = dispatch => url => {
   dispatch({
@@ -29,6 +42,7 @@ const setRequestBody = dispatch => body => {
 }
 
 export {
+  setRequestError,
   setRequestUrl,
   setRequestMethod,
   setRequestHeaders,
