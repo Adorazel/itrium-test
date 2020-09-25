@@ -26,9 +26,9 @@ class PanelContainer extends Component {
     setRequestHeaders(newHeaders)
   }
 
-  bodyChangeHandler = ({target}) => {
+  bodyChangeHandler = value => {
     const {setRequestBody} = this.props
-    setRequestBody(target.value)
+    setRequestBody(value)
   }
 
   sendRequestHandler = () => {

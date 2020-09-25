@@ -1,5 +1,6 @@
 import React from "react"
 import ErrorIndicator from "../ErrorIndicator"
+import Editor from "../Editor"
 
 const Panel = (props) => {
 
@@ -66,14 +67,20 @@ const Panel = (props) => {
       {error && <ErrorIndicator error={error}/>}
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a className="nav-link active" href="#headers" onClick={tabHandler}>Headers</a>
+          <a className="nav-link active" href="#body" onClick={tabHandler}>Body</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#body" onClick={tabHandler}>Body</a>
+          <a className="nav-link" href="#headers" onClick={tabHandler}>Headers</a>
         </li>
       </ul>
       <div className="tab-content">
-        <div className="tab-pane py-3 active" id="headers" role="tabpanel" aria-labelledby="headers-tab">
+        <div className="tab-pane py-3 active" id="body" role="tabpanel" aria-labelledby="body-tab">
+          <div className="form-group">
+            <label className="font-weight-bold">JSON</label>
+            <Editor value={body} onChange={bodyChangeHandler} readOnly={loading}/>
+          </div>
+        </div>
+        <div className="tab-pane py-3" id="headers" role="tabpanel" aria-labelledby="headers-tab">
           <table className="table mb-3">
             <thead>
             <tr>
@@ -106,13 +113,6 @@ const Panel = (props) => {
                     onClick={event => addHeaderHandler(event)} disabled={loading}>
               ADD HEADER
             </button>
-          </div>
-        </div>
-        <div className="tab-pane py-3" id="body" role="tabpanel" aria-labelledby="body-tab">
-          <div className="form-group">
-            <label htmlFor="body-textarea" className="font-weight-bold">JSON</label>
-            <textarea id="body-textarea" className="form-control" rows="10"
-                      value={body} onChange={bodyChangeHandler} disabled={loading}/>
           </div>
         </div>
       </div>
