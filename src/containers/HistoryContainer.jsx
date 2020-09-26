@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import History from "../components/History"
 import {
+  setHistory,
   purgeHistory,
   removeHistoryItem,
   activateHistoryItem,
@@ -21,7 +22,7 @@ import {
 class HistoryContainer extends Component {
 
   getItem = (event, itemId) => {
-    event.preventDefault()
+    event && event.preventDefault()
 
     const {
       items, activateHistoryItem,
@@ -29,7 +30,12 @@ class HistoryContainer extends Component {
       setResponseError, setResponseContentType, setResponseStatusCode, setResponseHeaders, setResponseBody,
     } = this.props
 
-    const item = items.find(({id}) => id === itemId)
+    let item
+    if (typeof itemId === "string") {
+      item = items.find(({id}) => id === itemId)
+    } else {
+      item = itemId
+    }
 
     setRequestError(item.request.error)
     setRequestUrl(item.request.url)
@@ -58,6 +64,18 @@ class HistoryContainer extends Component {
     purgeHistory()
   }
 
+  componentDidMount() {
+    const {setHistory} = this.props
+    let storage = localStorage.getItem("ITRIUM_DEMO_HISTORTY")
+    if (storage) {
+      storage = JSON.parse(storage)
+      setHistory(storage)
+      let activeItem = storage.find(item => item.active === true)
+      if (!activeItem) activeItem = storage[0]
+      this.getItem(null, activeItem)
+    }
+  }
+
   render() {
     const {items} = this.props
     const {getItem, removeItem, purge} = this
@@ -71,6 +89,7 @@ const mapStateToProps = ({history: {items}}) => ({items})
 
 const mapDispatchToProps = dispatch => {
   return {
+    setHistory: setHistory(dispatch),
     removeHistoryItem: removeHistoryItem(dispatch),
     purgeHistory: purgeHistory(dispatch),
     activateHistoryItem: activateHistoryItem(dispatch),

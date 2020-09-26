@@ -1,4 +1,11 @@
-import {HISTORY_ACTIVATE_ITEM, HISTORY_ADD_ITEM, HISTORY_PURGE, HISTORY_REMOVE_ITEM} from "../actionTypes"
+import {HISTORY_ACTIVATE_ITEM, HISTORY_ADD_ITEM, HISTORY_PURGE, HISTORY_REMOVE_ITEM, HISTORY_SET} from "../actionTypes"
+
+const setHistory = dispatch => history => {
+  dispatch({
+    type: HISTORY_SET,
+    payload: history
+  })
+}
 
 const addHistoryItem = dispatch => item => {
   dispatch({
@@ -26,6 +33,7 @@ const purgeHistory = dispatch => () => {
 }
 
 export {
+  setHistory,
   addHistoryItem,
   removeHistoryItem,
   purgeHistory,

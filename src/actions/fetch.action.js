@@ -26,14 +26,8 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
   const historyItem = {
     id: v4(),
     active: true,
-    request: {
-      url,
-      method,
-      headers,
-      body,
-    },
-    response: {
-    }
+    request: {url, method, headers, body},
+    response: {}
   }
 
   // Process headers
@@ -43,7 +37,7 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
 
   // Process & validate body
   historyItem.request.error = null
-  setRequestError(dispatch)(historyItem.request.error)
+  setRequestError(dispatch)(null)
   if (body.trim() && method !== "GET") {
     try {
       body = JSON.parse(body)
@@ -68,7 +62,7 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
       // Set response error
       if (response.ok) {
         historyItem.response.error = null
-        setResponseError(dispatch)(historyItem.response.error)
+        setResponseError(dispatch)(null)
       } else {
         historyItem.response.error = {message: response.statusText || "Status code: " + response.status}
         setResponseError(dispatch)(historyItem.response.error)
@@ -76,13 +70,13 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
 
       // Set response status code
       historyItem.response.statusCode = response.status
-      setResponseStatusCode(dispatch)(historyItem.response.statusCode)
+      setResponseStatusCode(dispatch)(response.status)
 
       // Set response headers
       let headers = [...response.headers.entries()]
       headers = headers.map(([key, value]) => ({key, value}))
       historyItem.response.headers = headers
-      setResponseHeaders(dispatch)(historyItem.response.headers)
+      setResponseHeaders(dispatch)(headers)
 
       // Set response content-type
       let type = "html"
@@ -91,16 +85,16 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
         type = "json"
       }
       historyItem.response.contentType = type
-      setResponseContentType(dispatch)(historyItem.response.contentType)
+      setResponseContentType(dispatch)(type)
 
       // Get response body
       return response.text()
 
     })
-    .then(data => {
+    .then(body => {
       // Set response body
-      historyItem.response.body = data
-      setResponseBody(dispatch)(historyItem.response.body)
+      historyItem.response.body = body
+      setResponseBody(dispatch)(body)
 
       addHistoryItem(dispatch)(historyItem)
     })

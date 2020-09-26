@@ -13,6 +13,7 @@ import {
   setResponseBody
 } from "./response.action"
 import {
+  setHistory,
   addHistoryItem,
   removeHistoryItem,
   purgeHistory,
@@ -32,6 +33,7 @@ export {
   setResponseStatusCode,
   setResponseHeaders,
   setResponseBody,
+  setHistory,
   addHistoryItem,
   removeHistoryItem,
   purgeHistory,
