@@ -1,34 +1,38 @@
 import React, {Component} from "react"
 import withService from "../hoc/withService"
 import {connect} from "react-redux"
-import {setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
+import {setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl, activateHistoryItem} from "../actions"
 import {compose} from "../utils"
 import Request from "../components/Request"
 
 class RequestContainer extends Component {
 
   urlChangeHandler = ({target}) => {
-    const {setRequestUrl} = this.props
+    const {setRequestUrl, activateHistoryItem} = this.props
     setRequestUrl(target.value)
+    activateHistoryItem("")
   }
 
   methodChangeHandler = ({target}) => {
-    const {setRequestMethod} = this.props
+    const {setRequestMethod, activateHistoryItem} = this.props
     setRequestMethod(target.value)
+    activateHistoryItem("")
   }
 
   headersChangeHandler = ({target}) => {
-    const {headers, setRequestHeaders} = this.props
+    const {headers, setRequestHeaders, activateHistoryItem} = this.props
     const newHeaders = [...headers]
     const idx = +target.name.split("_")[1]
     const key = target.name.split("_")[0]
     newHeaders[idx][key] = target.value
     setRequestHeaders(newHeaders)
+    activateHistoryItem("")
   }
 
   bodyChangeHandler = value => {
-    const {setRequestBody} = this.props
+    const {setRequestBody, activateHistoryItem} = this.props
     setRequestBody(value)
+    activateHistoryItem("")
   }
 
   sendRequestHandler = () => {
@@ -97,6 +101,7 @@ const mapDispatchToProps = (dispatch, {service}) => {
     setRequestHeaders: setRequestHeaders(dispatch),
     setRequestBody: setRequestBody(dispatch),
     fetchUrl: fetchUrl(dispatch, service),
+    activateHistoryItem: activateHistoryItem(dispatch)
   }
 }
 

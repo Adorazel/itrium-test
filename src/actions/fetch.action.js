@@ -34,6 +34,7 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
   headers = headers.map(header => Object.values(header))
   headers = Object.fromEntries(headers)
   delete headers[""]
+  console.log(headers)
 
   // Process & validate body
   historyItem.request.error = null

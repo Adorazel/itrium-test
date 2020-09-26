@@ -1,6 +1,13 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 
 const History = ({items, getItem, removeItem, purge}) => {
+
+  const state = useState(Date.now())
+
+  useEffect(() => {
+    const timer = setTimeout(() => state[1](Date.now()), 1000)
+    return () => clearTimeout(timer)
+  }, [state])
 
   const getColor = statusCode => {
     let backgroundColor = "#28a745"
@@ -37,7 +44,12 @@ const History = ({items, getItem, removeItem, purge}) => {
       return Math.floor(interval) + " minutes ago"
     }
 
-    return Math.floor(seconds) + " seconds ago"
+    interval = seconds
+    if (interval > 0) {
+      return Math.floor(interval) + " seconds ago"
+    }
+
+    return "Sent currently"
   }
 
   return <section className="border border-top-0 border-bottom-0 border-left-0 h-100 pr-4"
@@ -50,9 +62,10 @@ const History = ({items, getItem, removeItem, purge}) => {
     </div>
     {
       items.map(item => {
-        return <div key={item.id} className={`history-item toast mb-3 ${item.active ? "active" : ""}`} onClick={event => getItem(event, item.id)}>
+        return <div key={item.id} className={`history-item toast mb-3 ${item.active ? "active" : ""}`}
+                    onClick={event => getItem(event, item.id)}>
           <div className="toast-header">
-            <span className="history-item__signal d-inline-block rounded mr-2"
+            <span className="history-item__signal d-inline-block rounded-circle mr-2"
                   style={getColor(item.response.statusCode)}/>
             <strong className="mr-auto">{item.request.method}</strong>
             <small>{getTime(item.timestamp)}</small>
@@ -60,7 +73,11 @@ const History = ({items, getItem, removeItem, purge}) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="toast-body text-break">{item.request.url}</div>
+          <div className="toast-body text-break">
+            {item.request.url}
+            <div className="history-item__hint small mt-2 text-black-50">Press Enter to send</div>
+          </div>
+
         </div>
       })
     }

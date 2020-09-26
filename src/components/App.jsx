@@ -6,7 +6,7 @@ import HistoryContainer from "../containers/HistoryContainer"
 const App = () => <div className="App">
   <header className="navbar navbar-dark bg-dark navbar-expand-lg text-white">
     <div className="container">
-      <h1>Itrium Demo</h1>
+      <h1>Itrium Test</h1>
     </div>
   </header>
   <div className="container">

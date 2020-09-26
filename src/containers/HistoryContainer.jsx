@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import History from "../components/History"
 import {
+  fetchUrl,
   setHistory,
   purgeHistory,
   removeHistoryItem,
@@ -17,9 +18,12 @@ import {
   setResponseHeaders,
   setResponseBody,
 } from "../actions"
+import {compose} from "../utils"
+import withService from "../hoc/withService"
 
 
 class HistoryContainer extends Component {
+
 
   getItem = (event, itemId) => {
     event && event.preventDefault()
@@ -64,7 +68,24 @@ class HistoryContainer extends Component {
     purgeHistory()
   }
 
+  keyDown = (event, id) => {
+    const {items, fetchUrl, loading} = this.props
+    let activeItem = items.find(item => item.active === true)
+
+    if (id) {
+      activeItem = items.find(item => item.id === id)
+    }
+
+    if (event.key === "Enter" && activeItem && !loading) {
+      const {url, method, headers, body} = activeItem.request
+      fetchUrl(url, method, headers, body)
+    }
+  }
+
   componentDidMount() {
+
+    document.addEventListener("keydown", this.keyDown)
+
     const {setHistory} = this.props
     let storage = localStorage.getItem("ITRIUM_DEMO_HISTORTY")
     if (storage) {
@@ -78,6 +99,10 @@ class HistoryContainer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.keyDown)
+  }
+
   render() {
     const {items} = this.props
     const {getItem, removeItem, purge} = this
@@ -87,10 +112,12 @@ class HistoryContainer extends Component {
   }
 }
 
-const mapStateToProps = ({history: {items}}) => ({items})
+const mapStateToProps = ({history: {items}, fetch: {loading}}) => ({items, loading})
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, {service}) => {
   return {
+    fetchUrl: fetchUrl(dispatch, service),
+
     setHistory: setHistory(dispatch),
     removeHistoryItem: removeHistoryItem(dispatch),
     purgeHistory: purgeHistory(dispatch),
@@ -110,4 +137,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryContainer)
+export default compose(
+  withService(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(HistoryContainer)

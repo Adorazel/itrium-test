@@ -1,7 +1,11 @@
-import {HISTORY_ACTIVATE_ITEM, HISTORY_ADD_ITEM, HISTORY_PURGE, HISTORY_REMOVE_ITEM, HISTORY_SET} from "../actionTypes";
+import {HISTORY_ACTIVATE_ITEM, HISTORY_ADD_ITEM, HISTORY_PURGE, HISTORY_REMOVE_ITEM, HISTORY_SET} from "../actionTypes"
 
 const saveHistory = items => {
-  localStorage.setItem("ITRIUM_DEMO_HISTORTY", JSON.stringify([...items]))
+  try {
+    localStorage.setItem("ITRIUM_DEMO_HISTORTY", JSON.stringify([...items]))
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 const initialState = {
