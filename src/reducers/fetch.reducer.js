@@ -1,4 +1,4 @@
-import {SET_FETCH_LOADING, SET_FETCH_SUCCESS, SET_FETCH_FAILURE} from "../actionTypes"
+import {FETCH_LOADING, FETCH_SUCCESS, FETCH_FAILURE} from "../actionTypes"
 
 const initialState = {
   error: null,
@@ -8,19 +8,19 @@ const initialState = {
 const fetchReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case SET_FETCH_LOADING:
+    case FETCH_LOADING:
       return {
         ...state,
         loading: true
       }
 
-    case SET_FETCH_SUCCESS:
+    case FETCH_SUCCESS:
       return {
         ...state,
         loading: false
       }
 
-    case SET_FETCH_FAILURE:
+    case FETCH_FAILURE:
       return {
         ...state,
         error: action.payload,

@@ -1,42 +1,42 @@
 import {
-  SET_REQUEST_BODY,
-  SET_REQUEST_ERROR,
-  SET_REQUEST_HEADERS,
-  SET_REQUEST_METHOD,
-  SET_REQUEST_URL
+  REQUEST_BODY,
+  REQUEST_ERROR,
+  REQUEST_HEADERS,
+  REQUEST_METHOD,
+  REQUEST_URL
 } from "../actionTypes"
 
 const setRequestError = dispatch => error => {
   dispatch({
-    type: SET_REQUEST_ERROR,
+    type: REQUEST_ERROR,
     payload: error
   })
 }
 
 const setRequestUrl = dispatch => url => {
   dispatch({
-    type: SET_REQUEST_URL,
+    type: REQUEST_URL,
     payload: url
   })
 }
 
 const setRequestMethod = dispatch => method => {
   dispatch({
-    type: SET_REQUEST_METHOD,
+    type: REQUEST_METHOD,
     payload: method
   })
 }
 
 const setRequestHeaders = dispatch => headers => {
   dispatch({
-    type: SET_REQUEST_HEADERS,
+    type: REQUEST_HEADERS,
     payload: headers
   })
 }
 
 const setRequestBody = dispatch => body => {
   dispatch({
-    type: SET_REQUEST_BODY,
+    type: REQUEST_BODY,
     payload: body
   })
 }

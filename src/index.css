@@ -17,7 +17,23 @@
 }
 
 .focus {
-    border-color: #80bdff!important;
+    border-color: #80bdff !important;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.history-item {
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+.history-item.active {
+    border-color: #80bdff !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.history-item__signal {
+    width: 1rem;
+    height: 1rem;
 }

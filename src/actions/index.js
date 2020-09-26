@@ -1,5 +1,24 @@
-import {setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody} from "./request.action"
-import {fetchUrl} from "./response.action"
+import {
+  setRequestError,
+  setRequestUrl,
+  setRequestMethod,
+  setRequestHeaders,
+  setRequestBody
+} from "./request.action"
+import {
+  setResponseError,
+  setResponseContentType,
+  setResponseStatusCode,
+  setResponseHeaders,
+  setResponseBody
+} from "./response.action"
+import {
+  addHistoryItem,
+  removeHistoryItem,
+  purgeHistory,
+  activateHistoryItem
+} from "./history.action"
+import {fetchUrl} from "./fetch.action"
 
 export {
   setRequestError,
@@ -7,5 +26,14 @@ export {
   setRequestMethod,
   setRequestHeaders,
   setRequestBody,
-  fetchUrl
+  fetchUrl,
+  setResponseError,
+  setResponseContentType,
+  setResponseStatusCode,
+  setResponseHeaders,
+  setResponseBody,
+  addHistoryItem,
+  removeHistoryItem,
+  purgeHistory,
+  activateHistoryItem,
 }

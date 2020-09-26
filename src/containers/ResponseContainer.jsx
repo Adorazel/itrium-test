@@ -8,12 +8,9 @@ class ResponseContainer extends Component {
 
     const {contentType, statusCode, headers, body} = this.props
 
-    // console.log(contentType, statusCode, headers, body)
-
     if (contentType && statusCode && headers && body) {
       return <Response {...this.props}/>
     }
-
 
     return <section>
       <h5 className="m-0 mb-3 text-uppercase">Response</h5>

@@ -1,7 +1,7 @@
 import React from 'react'
-import History from "./History"
 import RequestContainer from "../containers/RequestContainer"
 import ResponseContainer from "../containers/ResponseContainer"
+import HistoryContainer from "../containers/HistoryContainer"
 
 const App = () => <div className="App">
   <header className="navbar navbar-dark bg-dark navbar-expand-lg text-white">
@@ -13,7 +13,7 @@ const App = () => <div className="App">
     <div className="py-3">
       <div className="row align-items-stretch">
         <aside className="col-3">
-          <History/>
+          <HistoryContainer/>
         </aside>
         <div className="col-9">
           <RequestContainer/>

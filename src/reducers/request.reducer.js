@@ -1,9 +1,9 @@
 import {
-  SET_REQUEST_BODY,
-  SET_REQUEST_ERROR,
-  SET_REQUEST_HEADERS,
-  SET_REQUEST_METHOD,
-  SET_REQUEST_URL
+  REQUEST_BODY,
+  REQUEST_ERROR,
+  REQUEST_HEADERS,
+  REQUEST_METHOD,
+  REQUEST_URL
 } from "../actionTypes"
 
 const initialState = {
@@ -17,34 +17,34 @@ const initialState = {
 const requestReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case SET_REQUEST_ERROR:
+    case REQUEST_ERROR:
       return {
         ...state,
         error: action.payload
       }
 
-    case SET_REQUEST_URL:
+    case REQUEST_URL:
       return {
         ...state,
         url: action.payload,
         error: null
       }
 
-    case SET_REQUEST_METHOD:
+    case REQUEST_METHOD:
       return {
         ...state,
         method: action.payload,
         error: null
       }
 
-    case SET_REQUEST_HEADERS:
+    case REQUEST_HEADERS:
       return {
         ...state,
         headers: action.payload,
         error: null
       }
 
-    case SET_REQUEST_BODY:
+    case REQUEST_BODY:
       return {
         ...state,
         body: action.payload,

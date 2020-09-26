@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import withService from "../hoc/withService"
 import {connect} from "react-redux"
-import {setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
+import {setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl} from "../actions"
 import {compose} from "../utils"
 import Request from "../components/Request"
 
@@ -32,27 +32,7 @@ class RequestContainer extends Component {
   }
 
   sendRequestHandler = () => {
-    const {url, method, fetchUrl, setRequestError} = this.props
-    let {headers, body} = this.props
-
-    // Process headers
-    headers = headers.map(header => Object.values(header))
-    headers = Object.fromEntries(headers)
-    delete headers[""]
-
-    // Process & validate body
-    if (body.trim() && method !== "GET") {
-      try {
-        body = JSON.parse(body)
-      } catch (e) {
-        setRequestError({message: "Body JSON is invalid"})
-        return
-      }
-    } else {
-      body = null
-    }
-
-    // Fetch request
+    const {url, method, headers, body ,fetchUrl} = this.props
     fetchUrl(url, method, headers, body)
   }
 
@@ -112,7 +92,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch, {service}) => {
   return {
-    setRequestError: setRequestError(dispatch),
     setRequestUrl: setRequestUrl(dispatch),
     setRequestMethod: setRequestMethod(dispatch),
     setRequestHeaders: setRequestHeaders(dispatch),
