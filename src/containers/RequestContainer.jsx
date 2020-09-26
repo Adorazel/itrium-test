@@ -35,10 +35,12 @@ class RequestContainer extends Component {
     const {url, method, fetchUrl, setRequestError} = this.props
     let {headers, body} = this.props
 
+    // Process headers
     headers = headers.map(header => Object.values(header))
     headers = Object.fromEntries(headers)
     delete headers[""]
 
+    // Process & validate body
     if (body.trim() && method !== "GET") {
       try {
         body = JSON.parse(body)
@@ -50,6 +52,7 @@ class RequestContainer extends Component {
       body = null
     }
 
+    // Fetch request
     fetchUrl(url, method, headers, body)
   }
 
@@ -62,7 +65,7 @@ class RequestContainer extends Component {
     const {headers, setRequestHeaders} = this.props
     let newHeaders = [...headers]
     if (newHeaders.length > 1) {
-      newHeaders = newHeaders.filter((item, i) => i !== idx)
+      newHeaders = newHeaders.filter((_, i) => i !== idx)
     } else {
       newHeaders = [{key: "", value: ""}]
     }

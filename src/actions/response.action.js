@@ -1,10 +1,23 @@
-import {SET_RESPONSE_BODY, SET_RESPONSE_ERROR, SET_RESPONSE_HEADERS, SET_RESPONSE_STATUS_CODE} from "../actionTypes"
+import {
+  SET_RESPONSE_BODY,
+  SET_RESPONSE_CONTENT_TYPE,
+  SET_RESPONSE_ERROR,
+  SET_RESPONSE_HEADERS,
+  SET_RESPONSE_STATUS_CODE
+} from "../actionTypes"
 import {setFetchLoading, setFetchSuccess, setFetchError} from "./fetch.action"
 
 const setResponseError = error => {
   return {
     type: SET_RESPONSE_ERROR,
     payload: error
+  }
+}
+
+const setResponseContentType = type => {
+  return {
+    type: SET_RESPONSE_CONTENT_TYPE,
+    payload: type
   }
 }
 
@@ -33,27 +46,40 @@ const fetchUrl = (dispatch, service) => (url, method, headers, body) => {
   dispatch(setFetchLoading())
   service[method.toLowerCase()](url, headers, body)
     .then(response => {
+
       dispatch(setFetchSuccess())
 
+      // Set response error
       if (response.ok) {
         dispatch(setResponseError(null))
       } else {
         dispatch(setResponseError({message: response.statusText || "Status code: " + response.status}))
       }
 
-      const headers = Object.fromEntries(response.headers.entries())
-      dispatch(setResponseHeaders(headers))
-
+      // Set response status code
       dispatch(setResponseStatusCode(response.status))
 
-      return response.json()
+      // Set response headers
+      let headers = [...response.headers.entries()]
+      headers = headers.map(([key, value]) => ({key, value}))
+      dispatch(setResponseHeaders(headers))
+
+      // Set response content-type
+      let type = "html"
+      const contentType = headers.find(({key}) => key === "content-type")
+      if (contentType && contentType.value.match(/application\/json/)) {
+        type= "json"
+      }
+      dispatch(setResponseContentType(type))
+
+      // Get response body
+      return response.text()
+
     })
-    .then(json => {
-      dispatch(setResponseBody(json))
-    })
-    .catch(error => {
-      dispatch(setFetchError({message: error.message}))
-    })
+    // Set response body
+    .then(data => dispatch(setResponseBody(data)))
+    // Set fetch error
+    .catch(error => dispatch(setFetchError({message: error.message})))
 }
 
 export {

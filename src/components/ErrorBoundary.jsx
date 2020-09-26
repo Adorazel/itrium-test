@@ -3,18 +3,13 @@ import ErrorIndicator from "./ErrorIndicator"
 
 export default class ErrorBoundary extends Component {
 
-  state = {
-    hasError: false,
-    error: null,
-    errorInfo: null
-  }
+  state = {hasError: false}
 
   componentDidCatch(error, errorInfo) {
     this.state.setState({
-      hasError: true,
-      error,
-      errorInfo
+      hasError: true
     })
+    console.log(error, errorInfo)
   }
 
   render() {

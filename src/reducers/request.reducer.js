@@ -1,4 +1,10 @@
-import {SET_REQUEST_ERROR, SET_REQUEST_BODY, SET_REQUEST_HEADERS, SET_REQUEST_METHOD, SET_REQUEST_URL} from "../actionTypes";
+import {
+  SET_REQUEST_BODY,
+  SET_REQUEST_ERROR,
+  SET_REQUEST_HEADERS,
+  SET_REQUEST_METHOD,
+  SET_REQUEST_URL
+} from "../actionTypes"
 
 const initialState = {
   url: "https://jsonplaceholder.typicode.com/todos",

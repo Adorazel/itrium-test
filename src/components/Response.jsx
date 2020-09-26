@@ -1,15 +1,15 @@
 import React, {useRef} from "react"
-import Editor from "./Editor";
-import {tabHandler} from "../utils";
+import Editor from "./Editor"
+import {tabHandler} from "../utils"
 
 const Response = props => {
 
   const section = useRef()
 
-  const {statusCode, headers, body} = props
+  const {contentType, statusCode, headers, body} = props
 
   let color = "#28a745"
-  if (statusCode > 299 || statusCode < 200) color = "#dc3545"
+  if (statusCode < 200 || statusCode > 299) color = "#dc3545"
 
   return <section ref={section}>
     <div className="d-flex justify-content-between align-middle">
@@ -27,14 +27,24 @@ const Response = props => {
     <div className="tab-content">
       <div className="tab-pane py-3 active" id="resp-body" role="tabpanel" aria-labelledby="body-tab">
         <div className="form-group">
-          <label className="font-weight-bold">JSON</label>
-          <Editor value={body ? JSON.stringify(body, null, "  ") : ""}
-                  onChange={() => {
-                  }} readOnly={true}/>
+          <Editor name="response-editor" value={body} readOnly={true} mode={contentType}/>
         </div>
       </div>
       <div className="tab-pane py-3" id="resp-headers" role="tabpanel" aria-labelledby="headers-tab">
-        <div>{JSON.stringify(headers)}</div>
+        <table className="table mb-3">
+          <thead>
+          <tr>
+            <th className="w-50">Key</th>
+            <th className="w-50">Value</th>
+          </tr>
+          </thead>
+          <tbody>
+          {headers.map(({key, value}, idx) => <tr key={idx}>
+            <td className="align-middle">{key}</td>
+            <td className="align-middle">{value}</td>
+          </tr>)}
+          </tbody>
+        </table>
       </div>
     </div>
   </section>

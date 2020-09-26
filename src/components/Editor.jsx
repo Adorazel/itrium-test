@@ -1,11 +1,17 @@
-import React from "react"
+import React, {useRef} from "react"
 import AceEditor from "react-ace"
 import "ace-builds/src-noconflict/mode-jsx"
 import "ace-builds/src-noconflict/mode-json"
 import "ace-builds/src-noconflict/snippets/json"
+import "ace-builds/src-noconflict/mode-html"
+import "ace-builds/src-noconflict/snippets/html"
 import "ace-builds/src-noconflict/theme-github"
 
-const Editor = ({value, onChange, readOnly}) => {
+const noop = () => {}
+
+const Editor = ({name, value, onChange = noop, readOnly, mode}) => {
+
+  const editor = useRef()
 
   const onFocus = event => {
     const $editor = event.path[1]
@@ -18,12 +24,14 @@ const Editor = ({value, onChange, readOnly}) => {
   }
 
   return <AceEditor
+    ref={editor}
+    name={name}
     value={value}
     onChange={onChange}
-    readOnly={!!readOnly}
     onFocus={onFocus}
     onBlur={onBlur}
-    mode="json"
+    readOnly={!!readOnly}
+    mode={mode ? mode : "json"}
     theme="github"
     showPrintMargin={true}
     showGutter={true}
