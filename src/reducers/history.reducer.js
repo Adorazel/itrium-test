@@ -23,6 +23,7 @@ const historyReducer = (state = initialState, action) => {
         item.active = false
         return item
       })]
+      newItems.length = newItems.length > 10 ? 10 : newItems.length
       saveHistory(newItems)
       return {items: newItems}
 

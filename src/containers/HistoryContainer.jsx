@@ -70,9 +70,11 @@ class HistoryContainer extends Component {
     if (storage) {
       storage = JSON.parse(storage)
       setHistory(storage)
-      let activeItem = storage.find(item => item.active === true)
-      if (!activeItem) activeItem = storage[0]
-      this.getItem(null, activeItem)
+      if (storage.length) {
+        let activeItem = storage.find(item => item.active === true)
+        if (!activeItem) activeItem = storage[0]
+        this.getItem(null, activeItem)
+      }
     }
   }
 

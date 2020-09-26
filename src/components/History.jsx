@@ -43,7 +43,7 @@ const History = ({items, getItem, removeItem, purge}) => {
   return <section className="border border-top-0 border-bottom-0 border-left-0 h-100 pr-4"
                   style={{minHeight: "calc(100vh - 105px)"}}>
     <div className="d-flex justify-content-between align-items-center mb-3">
-      <h5 className="m-0 text-uppercase">History</h5>
+      <h5 className="m-0 mb-1 text-uppercase">History ({items.length})</h5>
       <button type="button" className="btn btn-outline-danger btn-sm" onClick={purge} disabled={!items.length}>
         <i className="fa fa-trash"/>
       </button>
