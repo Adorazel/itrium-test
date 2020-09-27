@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  itrium_web:
+  web:
     external: true
 
 services:
@@ -11,7 +11,7 @@ services:
     labels:
       - traefik.backend=itrium-test
       - traefik.frontend.rule=Host:itrium.adorazel.online
-      - traefik.docker.network=itrium_web
+      - traefik.docker.network=web
       - traefik.port=5000
     networks:
-      - itrium_web
+      - web
