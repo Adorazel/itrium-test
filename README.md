@@ -19,7 +19,7 @@
     npm install
     npm run client:install
     npm run client:build
-    npm run server:start
+    npm run start
     
 ## Разработка
 
