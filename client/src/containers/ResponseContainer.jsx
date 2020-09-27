@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import Response from "../components/Response"
+import {Response} from "../components"
 
 class ResponseContainer extends Component {
 

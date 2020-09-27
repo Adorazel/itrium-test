@@ -2,10 +2,9 @@ import React from "react"
 import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import * as serviceWorker from "./serviceWorker"
-import App from "./components/App"
-import ErrorBoundary from "./components/ErrorBoundary"
-import FetchService from "./services/fetch.service"
-import {ServiceProvider, QueueProvider} from "./contexts"
+import {App, ErrorBoundary} from "./components"
+import {FetchServiceProvider, WebSocketServiceProvider, QueueProvider} from "./contexts"
+import {FetchService, WebSocketService} from "./services"
 import store from "./store"
 import {Queue} from "./utils"
 
@@ -13,17 +12,20 @@ import "./index.css"
 
 
 const fetchService = new FetchService()
+const webSocketService = new WebSocketService()
 const queue = new Queue()
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ErrorBoundary>
-        <ServiceProvider value={fetchService}>
-          <QueueProvider value={queue}>
-            <App/>
-          </QueueProvider>
-        </ServiceProvider>
+        <FetchServiceProvider value={fetchService}>
+          <WebSocketServiceProvider value={webSocketService}>
+            <QueueProvider value={queue}>
+              <App/>
+            </QueueProvider>
+          </WebSocketServiceProvider>
+        </FetchServiceProvider>
       </ErrorBoundary>
     </Provider>
   </React.StrictMode>,

@@ -1,5 +1,5 @@
 import React, {useRef} from "react"
-import Editor from "./Editor"
+import {Editor} from "./"
 import {tabHandler} from "../utils"
 
 const Response = props => {

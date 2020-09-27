@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {withQueue, withFetch} from "../hoc"
 import {bindActionCreators, compose} from "../utils"
 import {connect} from "react-redux"
-import Queue from "../components/Queue"
+import {Queue} from "../components"
 import {fetchUrl} from "../actions"
 
 class QueueContainer extends Component {

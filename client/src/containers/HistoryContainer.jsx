@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import History from "../components/History"
+import {History} from "../components"
 import {bindActionCreators, compose} from "../utils"
 import {withQueue} from "../hoc"
 import {

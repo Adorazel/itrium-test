@@ -6,10 +6,6 @@
 
 Отредактируйте файлы `docker-compose.yml` и `Dockerfile`
 
-    cd ./itrium-test/
-    nano ./docker-compose.yml
-    nano ./Dockerfile
-
 Выполните в консоли команду:
     
     docker-compose up -d --build

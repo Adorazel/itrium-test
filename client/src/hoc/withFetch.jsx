@@ -1,8 +1,8 @@
 import React from "react"
-import {ServiceConsumer} from "../contexts"
+import {FetchServiceConsumer} from "../contexts"
 
 const withFetch = () => Wrapped => {
-  return props => <ServiceConsumer>{fetchService => <Wrapped {...props} fetchService={fetchService}/>}</ServiceConsumer>
+  return props => <FetchServiceConsumer>{fetchService => <Wrapped {...props} fetchService={fetchService}/>}</FetchServiceConsumer>
 }
 
 export default withFetch

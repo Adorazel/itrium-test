@@ -1,6 +1,8 @@
 import React, {Component} from "react"
 import {withQueue} from "../hoc"
 import {connect} from "react-redux"
+import {Request} from "../components"
+import {bindActionCreators, compose} from "../utils"
 import {
   setRequestUrl,
   setRequestMethod,
@@ -9,8 +11,8 @@ import {
   enqueueUrl,
   activateHistoryItem
 } from "../actions"
-import {bindActionCreators, compose} from "../utils"
-import Request from "../components/Request"
+
+
 
 class RequestContainer extends Component {
 
