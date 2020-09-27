@@ -22,11 +22,14 @@ const Websocket = props => {
       <div className="row">
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label htmlFor="location" className="font-weight-bold">Location</label>
-            <input type="text" className="form-control" id="location"
+            <div className="d-flex mb-2">
+              <h5 className="text-uppercase m-0 mr-2">Location</h5>
+              {isConnected && <div><span className="badge badge-success">CONNECTED</span></div>}
+            </div>
+            <input type="text" className="form-control"
                    value={location} onChange={locationChangeHandler} disabled={isConnected}/>
           </div>
-          <div className="mb-3">
+          <div className="mb-5">
             <button type="button" className="btn btn-primary btn-sm text-uppercase"
                     onClick={connectHandler} disabled={isConnected}>
               Connect
@@ -38,8 +41,8 @@ const Websocket = props => {
             </button>
           </div>
           <div className="form-group">
-            <label htmlFor="message" className="font-weight-bold">Message</label>
-            <input type="text" className="form-control" id="message" value={message} onChange={messageChangeHandler}/>
+            <h5 className="text-uppercase m-0 mb-2">Message</h5>
+            <textarea rows="5" className="form-control" value={message} onChange={messageChangeHandler}/>
           </div>
           <div className="mb-3">
             <button type="button" className="btn btn-success btn-sm text-uppercase"
@@ -50,7 +53,7 @@ const Websocket = props => {
         </div>
         <div className="col-12 col-md-6">
           <div className="form-group">
-            <label className="font-weight-bold">Log</label>
+            <h5 className="text-uppercase m-0 mb-2">Log</h5>
             <div ref={output} className="websocket-output border rounded px-2">{parser.parse(log)}</div>
           </div>
           <div className="mb-3">
