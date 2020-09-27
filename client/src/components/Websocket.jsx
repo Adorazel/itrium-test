@@ -44,7 +44,7 @@ const Websocket = props => {
             <h5 className="text-uppercase m-0 mb-2">Message</h5>
             <textarea rows="5" className="form-control" value={message} onChange={messageChangeHandler}/>
           </div>
-          <div className="mb-3">
+          <div className="mb-5 mb-md-3">
             <button type="button" className="btn btn-success btn-sm text-uppercase"
                     onClick={sendHandler} disabled={!isConnected}>
               Send
