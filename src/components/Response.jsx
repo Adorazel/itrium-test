@@ -8,13 +8,13 @@ const Response = props => {
 
   const {contentType, statusCode, headers, body} = props
 
-  let color = "#28a745"
-  if (statusCode < 200 || statusCode > 299) color = "#dc3545"
+  let textColor = "text-success"
+  if (statusCode < 200 || statusCode > 299) textColor = "text-danger"
 
   return <section ref={section}>
     <div className="d-flex justify-content-between align-middle">
       <h5 className="m-0 mb-3 text-uppercase">Response</h5>
-      <div style={{color}} className="font-weight-bold">Status code: {statusCode}</div>
+      <div className={`font-weight-bold ${textColor}`}>Status code: {statusCode}</div>
     </div>
     <ul className="nav nav-tabs">
       <li className="nav-item">

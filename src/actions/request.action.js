@@ -1,10 +1,4 @@
-import {
-  REQUEST_BODY,
-  REQUEST_ERROR,
-  REQUEST_HEADERS,
-  REQUEST_METHOD,
-  REQUEST_URL
-} from "../actionTypes"
+import {REQUEST_BODY, REQUEST_ERROR, REQUEST_HEADERS, REQUEST_METHOD, REQUEST_URL} from "../actionTypes"
 
 const setRequestError = dispatch => error => {
   dispatch({

@@ -1,3 +1,20 @@
+import Queue from "./Queue"
+
+const bindActionCreators = (actions = {key: ()=>{}}, dispatch) => {
+
+  let funcs = Object.values(actions)
+  funcs = funcs.map(fn => fn(dispatch))
+
+  const newActions = {}
+  const keys = Object.keys(actions)
+
+  keys.forEach((key, i) => {
+    newActions[key] = funcs[i]
+  })
+
+  return newActions
+}
+
 const compose = (...funcs) => (comp) => {
   return funcs.reduceRight((wrapped, fn) => fn(wrapped), comp)
 }
@@ -20,6 +37,8 @@ const tabHandler = (event, section) => {
 }
 
 export {
+  Queue,
   compose,
-  tabHandler
+  tabHandler,
+  bindActionCreators
 }

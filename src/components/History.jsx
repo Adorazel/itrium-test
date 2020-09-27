@@ -9,10 +9,11 @@ const History = ({items, getItem, removeItem, purge}) => {
     return () => clearTimeout(timer)
   }, [state])
 
+
   const getColor = statusCode => {
-    let backgroundColor = "#28a745"
-    if (statusCode < 200 || statusCode > 299) backgroundColor = "#dc3545"
-    return {backgroundColor}
+    let bg = "bg-success"
+    if (statusCode < 200 || statusCode > 299) bg = "bg-danger"
+    return bg
   }
 
   const getTime = timestamp => {
@@ -62,11 +63,11 @@ const History = ({items, getItem, removeItem, purge}) => {
     </div>
     {
       items.map(item => {
-        return <div key={item.id} className={`history-item toast mb-3 ${item.active ? "active" : ""}`}
+        return <div key={item.id}
+                    className={`history-item toast mb-3 ${item.active ? "active" : ""}`}
                     onClick={event => getItem(event, item.id)}>
           <div className="toast-header">
-            <span className="history-item__signal d-inline-block rounded-circle mr-2"
-                  style={getColor(item.response.statusCode)}/>
+            <span className={`history-item__signal ${getColor(item.response.statusCode)} d-inline-block rounded-circle mr-2`}/>
             <strong className="mr-auto">{item.request.method}</strong>
             <small>{getTime(item.timestamp)}</small>
             <button type="button" className="ml-2 mb-1 close" onClick={event => removeItem(event, item.id)}>
@@ -77,7 +78,6 @@ const History = ({items, getItem, removeItem, purge}) => {
             {item.request.url}
             <div className="history-item__hint small mt-2 text-black-50">Press Enter to send</div>
           </div>
-
         </div>
       })
     }

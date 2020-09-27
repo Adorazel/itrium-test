@@ -5,19 +5,24 @@ import * as serviceWorker from "./serviceWorker"
 import App from "./components/App"
 import ErrorBoundary from "./components/ErrorBoundary"
 import FetchService from "./services/fetch.service"
-import {ServiceProvider} from "./contexts/ServiceContex"
+import {ServiceProvider, QueueProvider} from "./contexts"
 import store from "./store"
+import {Queue} from "./utils"
 
 import "./index.css"
 
+
 const fetchService = new FetchService()
+const queue = new Queue()
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ErrorBoundary>
         <ServiceProvider value={fetchService}>
-          <App/>
+          <QueueProvider value={queue}>
+            <App/>
+          </QueueProvider>
         </ServiceProvider>
       </ErrorBoundary>
     </Provider>

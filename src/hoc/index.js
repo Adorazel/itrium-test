@@ -1,3 +1,4 @@
-import withService from "./withService"
+import withFetch from "./withFetch"
+import withQueue from "./withQueue"
 
-export {withService}
+export {withFetch, withQueue}

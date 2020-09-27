@@ -1,29 +1,17 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
 import History from "../components/History"
+import {bindActionCreators, compose} from "../utils"
+import {withQueue} from "../hoc"
 import {
-  fetchUrl,
-  setHistory,
-  purgeHistory,
-  removeHistoryItem,
-  activateHistoryItem,
-  setRequestError,
-  setRequestUrl,
-  setRequestMethod,
-  setRequestHeaders,
-  setRequestBody,
-  setResponseError,
-  setResponseContentType,
-  setResponseStatusCode,
-  setResponseHeaders,
-  setResponseBody,
+  enqueueUrl,
+  setHistory, purgeHistory, removeHistoryItem, activateHistoryItem,
+  setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody,
+  setResponseError, setResponseContentType, setResponseStatusCode, setResponseHeaders, setResponseBody,
 } from "../actions"
-import {compose} from "../utils"
-import withService from "../hoc/withService"
 
 
 class HistoryContainer extends Component {
-
 
   getItem = (event, itemId) => {
     event && event.preventDefault()
@@ -69,23 +57,20 @@ class HistoryContainer extends Component {
   }
 
   keyDown = (event, id) => {
-    const {items, fetchUrl, loading} = this.props
+    const {items, enqueueUrl} = this.props
     let activeItem = items.find(item => item.active === true)
 
     if (id) {
       activeItem = items.find(item => item.id === id)
     }
 
-    if (event.key === "Enter" && activeItem && !loading) {
+    if (event.key === "Enter" && activeItem) {
       const {url, method, headers, body} = activeItem.request
-      fetchUrl(url, method, headers, body)
+      enqueueUrl(url, method, headers, body)
     }
   }
 
   componentDidMount() {
-
-    document.addEventListener("keydown", this.keyDown)
-
     const {setHistory} = this.props
     let storage = localStorage.getItem("ITRIUM_DEMO_HISTORTY")
     if (storage) {
@@ -97,6 +82,7 @@ class HistoryContainer extends Component {
         this.getItem(null, activeItem)
       }
     }
+    document.addEventListener("keydown", this.keyDown)
   }
 
   componentWillUnmount() {
@@ -107,37 +93,21 @@ class HistoryContainer extends Component {
     const {items} = this.props
     const {getItem, removeItem, purge} = this
     const historyProps = {items, getItem, removeItem, purge}
-
     return <History {...historyProps}/>
   }
 }
 
-const mapStateToProps = ({history: {items}, fetch: {loading}}) => ({items, loading})
+const mapStateToProps = ({history: {items}}) => ({items})
 
-const mapDispatchToProps = (dispatch, {service}) => {
-  return {
-    fetchUrl: fetchUrl(dispatch, service),
+const mapDispatchToProps = (dispatch, {queue}) => bindActionCreators({
+  enqueueUrl: enqueueUrl(queue),
+  setHistory, removeHistoryItem, purgeHistory, activateHistoryItem,
+  setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody,
+  setResponseError, setResponseContentType, setResponseStatusCode, setResponseHeaders, setResponseBody,
+}, dispatch)
 
-    setHistory: setHistory(dispatch),
-    removeHistoryItem: removeHistoryItem(dispatch),
-    purgeHistory: purgeHistory(dispatch),
-    activateHistoryItem: activateHistoryItem(dispatch),
-
-    setRequestError: setRequestError(dispatch),
-    setRequestUrl: setRequestUrl(dispatch),
-    setRequestMethod: setRequestMethod(dispatch),
-    setRequestHeaders: setRequestHeaders(dispatch),
-    setRequestBody: setRequestBody(dispatch),
-
-    setResponseError: setResponseError(dispatch),
-    setResponseContentType: setResponseContentType(dispatch),
-    setResponseStatusCode: setResponseStatusCode(dispatch),
-    setResponseHeaders: setResponseHeaders(dispatch),
-    setResponseBody: setResponseBody(dispatch),
-  }
-}
 
 export default compose(
-  withService(),
+  withQueue(),
   connect(mapStateToProps, mapDispatchToProps)
 )(HistoryContainer)

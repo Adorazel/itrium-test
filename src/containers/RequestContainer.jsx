@@ -1,8 +1,15 @@
 import React, {Component} from "react"
-import withService from "../hoc/withService"
+import {withQueue} from "../hoc"
 import {connect} from "react-redux"
-import {setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, fetchUrl, activateHistoryItem} from "../actions"
-import {compose} from "../utils"
+import {
+  setRequestUrl,
+  setRequestMethod,
+  setRequestHeaders,
+  setRequestBody,
+  enqueueUrl,
+  activateHistoryItem
+} from "../actions"
+import {bindActionCreators, compose} from "../utils"
 import Request from "../components/Request"
 
 class RequestContainer extends Component {
@@ -36,8 +43,8 @@ class RequestContainer extends Component {
   }
 
   sendRequestHandler = () => {
-    const {url, method, headers, body ,fetchUrl} = this.props
-    fetchUrl(url, method, headers, body)
+    const {url, method, headers, body, enqueueUrl} = this.props
+    enqueueUrl(url, method, headers, body)
   }
 
   keyDownHandler = event => {
@@ -94,19 +101,13 @@ const mapStateToProps = ({
                            fetch: {error: fetchError, loading}
                          }) => ({reqError, resError, fetchError, loading, url, method, headers, body})
 
-const mapDispatchToProps = (dispatch, {service}) => {
-  return {
-    setRequestUrl: setRequestUrl(dispatch),
-    setRequestMethod: setRequestMethod(dispatch),
-    setRequestHeaders: setRequestHeaders(dispatch),
-    setRequestBody: setRequestBody(dispatch),
-    fetchUrl: fetchUrl(dispatch, service),
-    activateHistoryItem: activateHistoryItem(dispatch)
-  }
-}
+const mapDispatchToProps = (dispatch, {queue}) => bindActionCreators({
+  enqueueUrl: enqueueUrl(queue),
+  setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody, activateHistoryItem
+}, dispatch)
 
 export default compose(
-  withService(),
+  withQueue(),
   connect(mapStateToProps, mapDispatchToProps)
 )(RequestContainer)
 
