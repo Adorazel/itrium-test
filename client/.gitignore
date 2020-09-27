@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+/.git
+/.idea
 /node_modules
 /.pnp
 .pnp.js
@@ -10,8 +12,6 @@
 
 # production
 /build
-/config/default.json
-/config/production.json
 
 # misc
 .DS_Store
@@ -23,8 +23,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-/.git
-/.idea
-*.iml
-

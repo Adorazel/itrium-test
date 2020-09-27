@@ -15,6 +15,3 @@ services:
       - traefik.port=5000
     networks:
       - web
-
-
-

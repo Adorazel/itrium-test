@@ -4,10 +4,11 @@
     
 На сервере должны быть установлены **Docker**, **Docker Compose** и **Traefik**.
 
-Отредактируйте файл `docker-compose.yml`
+Отредактируйте файлы `docker-compose.yml` и `Dockerfile`
 
     cd ./itrium-test/
     nano ./docker-compose.yml
+    nano ./Dockerfile
 
 Выполните в консоли команду:
     
@@ -16,10 +17,12 @@
 ## Альтернативный вариант развёртывания
 
     npm install
-    npm run build
-    npm run server
+    npm run client:install
+    npm run client:build
+    npm run server:start
     
 ## Разработка
 
-    npm install   
-    npm run start 
+    npm install
+    npm run client:install      
+    npm run client:start 
