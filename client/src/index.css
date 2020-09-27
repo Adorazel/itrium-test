@@ -56,3 +56,22 @@
     width: .75rem;
     height: .75rem;
 }
+
+.websocket-output {
+    height: 300px;
+    overflow-y: auto;
+    visibility: hidden;
+}
+
+.websocket-output.smooth {
+    scroll-behavior: smooth;
+    visibility: visible;
+}
+
+.websocket-output p {
+    line-height: 1.2;
+}
+
+.websocket-output small {
+    font-size: .625rem;
+}

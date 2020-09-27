@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import * as serviceWorker from "./serviceWorker"
 import {App, ErrorBoundary} from "./components"
-import {FetchServiceProvider, WebSocketServiceProvider, QueueProvider} from "./contexts"
+import {FetchServiceProvider, WebsocketServiceProvider, QueueProvider} from "./contexts"
 import {FetchService, WebSocketService} from "./services"
 import store from "./store"
 import {Queue} from "./utils"
@@ -20,11 +20,11 @@ ReactDOM.render(
     <Provider store={store}>
       <ErrorBoundary>
         <FetchServiceProvider value={fetchService}>
-          <WebSocketServiceProvider value={webSocketService}>
+          <WebsocketServiceProvider value={webSocketService}>
             <QueueProvider value={queue}>
               <App/>
             </QueueProvider>
-          </WebSocketServiceProvider>
+          </WebsocketServiceProvider>
         </FetchServiceProvider>
       </ErrorBoundary>
     </Provider>

@@ -1,6 +1,6 @@
 import React, {useRef} from "react"
 import {BrowserRouter as Router, NavLink, Redirect, Route, Switch} from "react-router-dom"
-import {FetchPage, WebSocketPage} from "../pages"
+import {FetchPage, WebsocketPage} from "../pages"
 
 const App = () => {
 
@@ -34,7 +34,7 @@ const App = () => {
       </header>
       <Switch>
         <Route exact path="/"><FetchPage/></Route>
-        <Route exact path="/web-socket"><WebSocketPage/></Route>
+        <Route exact path="/web-socket"><WebsocketPage/></Route>
         <Route><Redirect to="/"/></Route>
       </Switch>
     </Router>

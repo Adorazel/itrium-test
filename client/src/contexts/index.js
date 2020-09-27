@@ -1,10 +1,10 @@
 import {FetchServiceProvider, FetchServiceConsumer} from "./FetchContex"
-import {WebSocketServiceProvider, WebSocketServiceConsumer} from "./WebSockerContex"
+import {WebsocketServiceProvider, WebsocketServiceConsumer} from "./WebsockerContex"
 import {QueueProvider, QueueConsumer} from "./QueueContex"
 
 export {
   FetchServiceProvider, FetchServiceConsumer,
-  WebSocketServiceProvider, WebSocketServiceConsumer,
+  WebsocketServiceProvider, WebsocketServiceConsumer,
   QueueProvider, QueueConsumer
 }
 

@@ -1,4 +1,5 @@
 import {fetchUrl} from "./fetch.action"
+import {setLocation, setMessage, doConnect, doDisconnect, doSend, doClear} from "./websocket.action"
 import {setHistory, addHistoryItem, removeHistoryItem, purgeHistory, activateHistoryItem} from "./history.action"
 import {queueUpdate, enqueueUrl} from "./queue.action"
 import {setRequestError, setRequestUrl, setRequestMethod, setRequestHeaders, setRequestBody} from "./request.action"
@@ -6,6 +7,13 @@ import {setResponseError, setResponseContentType, setResponseStatusCode, setResp
 
 export {
   fetchUrl,
+
+  setLocation,
+  setMessage,
+  doConnect,
+  doDisconnect,
+  doSend,
+  doClear,
 
   setHistory,
   addHistoryItem,

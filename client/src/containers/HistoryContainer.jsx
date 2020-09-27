@@ -71,15 +71,17 @@ class HistoryContainer extends Component {
   }
 
   componentDidMount() {
-    const {setHistory} = this.props
-    let storage = localStorage.getItem("ITRIUM_DEMO_HISTORTY")
-    if (storage) {
-      storage = JSON.parse(storage)
-      setHistory(storage)
-      if (storage.length) {
-        let activeItem = storage.find(item => item.active === true)
-        if (!activeItem) activeItem = storage[0]
-        this.getItem(null, activeItem)
+    const {setHistory, items} = this.props
+    if (!items.length) {
+      let storage = localStorage.getItem("ITRIUM_DEMO_HISTORTY")
+      if (storage) {
+        storage = JSON.parse(storage)
+        setHistory(storage)
+        if (storage.length) {
+          let activeItem = storage.find(item => item.active === true)
+          if (!activeItem) activeItem = storage[0]
+          this.getItem(null, activeItem)
+        }
       }
     }
     document.addEventListener("keydown", this.keyDown)

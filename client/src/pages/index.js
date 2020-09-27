@@ -1,4 +1,4 @@
 import FetchPage from "./FetchPage"
-import WebSocketPage from "./WebSocketPage"
+import WebsocketPage from "./WebsocketPage"
 
-export {FetchPage, WebSocketPage}
+export {FetchPage, WebsocketPage}

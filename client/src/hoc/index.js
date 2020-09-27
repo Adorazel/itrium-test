@@ -1,4 +1,5 @@
 import withFetch from "./withFetch"
 import withQueue from "./withQueue"
+import withWebsocket from "./withWebsocket"
 
-export {withFetch, withQueue}
+export {withFetch, withWebsocket, withQueue}
