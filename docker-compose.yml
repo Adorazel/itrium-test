@@ -9,7 +9,7 @@ services:
     build: .
     restart: always
     labels:
-      - traefik.backend=itrium-test
+      - traefik.backend=itrium
       - traefik.frontend.rule=Host:itrium.adorazel.online
       - traefik.docker.network=web
       - traefik.port=5000
