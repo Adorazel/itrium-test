@@ -9,7 +9,7 @@ import {
 const initialState = {
   url: "https://jsonplaceholder.typicode.com/todos",
   method: "GET",
-  headers: [{key: "Content-Type", value: "application/json"}],
+  headers: [{key: "", value: ""}],
   body: "",
   error: null
 }
