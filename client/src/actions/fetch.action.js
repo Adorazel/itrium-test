@@ -67,6 +67,9 @@ const fetchUrl = (fetchService, queue) => dispatch => (url, method, headers, bod
     setFetchSuccess(dispatch)()
 
   }).catch(error => {
+    queue.dequeue()
+    queueUpdate(dispatch)(queue.print())
+
     setFetchError(dispatch)({message: error.message})
   })
 
